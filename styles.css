@@ -1366,3 +1366,60 @@ body {
 
     border-radius: 7px;
 }
+/* BOTÓN PLAY SOBRE LOS VIDEOS */
+
+.video-wrapper {
+    position: relative;
+    cursor: pointer;
+    background: #071c28;
+}
+
+.video-play {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.75);
+
+    background: rgba(4, 19, 29, 0.82);
+
+    cursor: pointer;
+
+    z-index: 5;
+}
+
+
+/* TRIÁNGULO */
+
+.video-play::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 53%;
+
+    transform: translate(-50%, -50%);
+
+    width: 0;
+    height: 0;
+
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 15px solid white;
+}
+
+
+/* CUANDO ESTÁ REPRODUCIENDO */
+
+.video-wrapper.reproduciendo .video-play {
+    display: none;
+}
