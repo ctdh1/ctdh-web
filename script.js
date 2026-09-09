@@ -40,3 +40,33 @@ videos.forEach((video) => {
     });
 
 });
+const contenedoresVideo = document.querySelectorAll(".video-wrapper");
+
+contenedoresVideo.forEach((contenedor) => {
+
+    const video = contenedor.querySelector("video");
+    const boton = contenedor.querySelector(".video-play");
+
+    boton.addEventListener("click", () => {
+        video.play();
+        contenedor.classList.add("reproduciendo");
+    });
+
+    video.addEventListener("click", () => {
+
+        if (video.paused) {
+            video.play();
+            contenedor.classList.add("reproduciendo");
+        } else {
+            video.pause();
+            contenedor.classList.remove("reproduciendo");
+        }
+
+    });
+
+    video.addEventListener("ended", () => {
+        contenedor.classList.remove("reproduciendo");
+        video.currentTime = 0;
+    });
+
+});
