@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CTDH | Topografía e Ingeniería</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* =========================================================
+           AJUSTES NUEVOS: SERVICIOS, VIDEOS, FICHAS Y CONTACTO
+        ========================================================= */
+
+        /* SERVICIOS */
+        .servicios-seccion {
+            background: #071923;
+            padding: 75px 6%;
+            border-top: 1px solid rgba(56, 198, 244, 0.12);
+            border-bottom: 1px solid rgba(56, 198, 244, 0.12);
+        }
+
+        .servicios-contenedor {
+            max-width: 1450px;
+            margin: auto;
+        }
+
+        .servicios-cabecera {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 60px;
+            align-items: end;
+            margin-bottom: 35px;
+        }
+
+        .servicios-cabecera h2 {
+            color: #ffffff;
+            font-size: 40px;
+            line-height: 1.08;
+        }
+
+        .servicios-cabecera h2 span {
+            display: block;
+            color: #38c6f4;
+        }
+
+        .servicios-intro {
+            color: #9eb1bd;
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        .servicios-lista {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .servicios-lista span {
+            display: flex;
+            align-items: center;
+            min-height: 72px;
+            padding: 16px 18px;
+            background: #0a2230;
+            color: #dbe8ee;
+            border: 1px solid rgba(56, 198, 244, 0.14);
+            border-radius: 7px;
+            font-size: 13px;
+            line-height: 1.35;
+            transition: 0.25s;
+        }
+
+        .servicios-lista span:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 198, 244, 0.55);
+        }
+
+        /* BOTÓN VER EQUIPO */
+        button.equipo-enlace {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #38c6f4;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        button.equipo-enlace:hover {
+            color: #ffffff;
+        }
+
+        /* VIDEOS: 8 VIDEOS EN DOS FILAS */
+        .videos-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            row-gap: 24px !important;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #061722;
+        }
+
+        /* NUESTRA DIFERENCIA */
+        .diferencia {
+            padding: 68px 6%;
+            background:
+                linear-gradient(rgba(4, 24, 35, 0.92), rgba(4, 24, 35, 0.94)),
+                url("images/general/hero-ctdh.jpeg");
+            background-size: cover;
+            background-position: center;
+            border-top: 1px solid rgba(56, 198, 244, 0.12);
+        }
+
+        .diferencia-contenedor {
+            max-width: 1450px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.35fr repeat(4, 1fr);
+            gap: 28px;
+            align-items: center;
+        }
+
+        .diferencia-titulo h2 {
+            color: #ffffff;
+            font-size: 34px;
+            line-height: 1.1;
+        }
+
+        .diferencia-titulo h2 span {
+            display: block;
+            color: #38c6f4;
+        }
+
+        .diferencia-item {
+            padding: 12px 20px;
+            text-align: center;
+            border-left: 1px solid rgba(56, 198, 244, 0.20);
+        }
+
+        .diferencia-icono {
+            color: #38c6f4;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .diferencia-item h3 {
+            color: #ffffff;
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .diferencia-item p {
+            color: #9eb1bd;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* FICHA DEL EQUIPO */
+        .modal-equipo {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .modal-equipo.activo {
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(1, 10, 16, 0.92);
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-contenido {
+            width: min(1240px, 94%);
+            position: relative;
+            z-index: 2;
+            margin: 45px auto;
+            background: #071c28;
+            border: 1px solid rgba(56, 198, 244, 0.25);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+        }
+
+        .modal-cerrar {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(56, 198, 244, 0.45);
+            background: rgba(4, 19, 29, 0.88);
+            color: #ffffff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal-cerrar:hover {
+            background: #0a84c6;
+        }
+
+        .modal-encabezado {
+            padding: 34px 45px;
+            border-bottom: 1px solid rgba(56, 198, 244, 0.14);
+        }
+
+        .modal-marca {
+            color: #38c6f4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 7px;
+        }
+
+        .modal-encabezado h2 {
+            color: #ffffff;
+            font-size: 40px;
+        }
+
+        .modal-tipo {
+            margin-top: 6px;
+            color: #91a8b6;
+            font-size: 13px;
+        }
+
+        .modal-principal {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+        }
+
+        .modal-foto-principal {
+            min-height: 480px;
+            background: #061722;
+        }
+
+        .modal-foto-principal img {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-descripcion {
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-descripcion h3 {
+            color: #ffffff;
+            font-size: 29px;
+            margin-bottom: 18px;
+        }
+
+        .modal-descripcion > p:not(.seccion-etiqueta) {
+            color: #aebfca;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .modal-datos {
+            margin-top: 28px;
+        }
+
+        .modal-datos div {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(56, 198, 244, 0.13);
+        }
+
+        .modal-datos span {
+            color: #78909d;
+            font-size: 11px;
+        }
+
+        .modal-datos strong {
+            color: #ffffff;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .modal-galeria-seccion {
+            padding: 48px 45px 52px;
+            background: #061722;
+        }
+
+        .modal-galeria-seccion h3 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .galeria-intro {
+            color: #91a8b6;
+            font-size: 13px;
+            margin-bottom: 26px;
+        }
+
+        .modal-galeria {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .modal-galeria img {
+            width: 100%;
+            height: 245px;
+            object-fit: cover;
+            border-radius: 7px;
+            border: 1px solid rgba(56, 198, 244, 0.12);
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .modal-galeria img:hover {
+            transform: scale(1.02);
+            border-color: #38c6f4;
+        }
+
+        /* CONTACTO */
+        .contacto-seccion {
+            padding: 75px 6%;
+            background: #071923;
+            border-top: 1px solid rgba(56, 198, 244, 0.14);
+        }
+
+        .contacto-contenedor {
+            max-width: 1450px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1.6fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .contacto-titulo h2 {
+            color: #ffffff;
+            font-size: 40px;
+            line-height: 1.08;
+            margin-bottom: 15px;
+        }
+
+        .contacto-titulo h2 span {
+            display: block;
+            color: #38c6f4;
+        }
+
+        .contacto-titulo > p:not(.seccion-etiqueta) {
+            color: #9eb1bd;
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 470px;
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .contacto-item {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            padding: 20px;
+            background: #0a2230;
+            border: 1px solid rgba(56, 198, 244, 0.14);
+            border-radius: 7px;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .contacto-item:hover {
+            border-color: #38c6f4;
+            transform: translateY(-3px);
+        }
+
+        .contacto-item span {
+            color: #78909d;
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .contacto-item strong {
+            color: #ffffff;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .contacto-item.destacado strong {
+            color: #38c6f4;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #04131d;
+            border-top: 1px solid rgba(56, 198, 244, 0.15);
+        }
+
+        .footer-contenedor {
+            max-width: 1450px;
+            margin: auto;
+            padding: 38px 6%;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .footer-logo {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 800;
+        }
+
+        .footer-marca p {
+            margin-top: 5px;
+            color: #718994;
+            font-size: 9px;
+            letter-spacing: 2px;
+        }
+
+        .footer-redes {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-redes a {
+            color: #b8c8d0;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .footer-redes a:hover {
+            color: #38c6f4;
+        }
+
+        .footer-inferior {
+            padding: 17px 6%;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #607783;
+            font-size: 10px;
+        }
+
+        @media (max-width: 1100px) {
+            .servicios-lista {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .diferencia-contenedor {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .diferencia-titulo {
+                grid-column: 1 / -1;
+            }
+
+            .contacto-contenedor {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .servicios-cabecera {
+                grid-template-columns: 1fr;
+            }
+
+            .videos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            .modal-principal {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-galeria {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-contenedor {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .servicios-lista,
+            .videos-grid,
+            .contacto-grid,
+            .modal-galeria,
+            .diferencia-contenedor {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         ENCABEZADO
+    ========================================== -->
+    <header class="header">
+<div class="logo">
+    <a href="#inicio" class="logo-enlace">
+
+        <img src="images/logo/logo-ctdh.png" alt="Logo CTDH">
+
+        <div class="logo-texto">
+            <strong>CTDH</strong>
+            <span>CONSTRUCCIÓN · TOPOGRAFÍA · INGENIERÍA</span>
+        </div>
+
+    </a>
+</div>
+
+        <nav class="menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#equipos">Equipos</a>
+            <a href="#videos">Videos</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <a href="#contacto" class="btn-cotizar">
+            COTIZAR →
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================================
+             PORTADA PRINCIPAL
+        ========================================== -->
+        <section id="inicio" class="hero">
+
+            <div class="hero-contenido">
+
+                <p class="hero-etiqueta">
+                    DEL TERRENO A UN MEJOR FUTURO
+                </p>
+
+                <h1>
+                    Equipos y soluciones
+                    <span>topográficas de alto nivel</span>
+                </h1>
+
+                <p class="hero-texto">
+                    En CTDH combinamos experiencia, tecnología y precisión
+                    para brindar soluciones topográficas en proyectos de
+                    ingeniería, construcción y desarrollo territorial.
+                </p>
+
+                <div class="hero-botones">
+
+                    <a href="#equipos" class="btn-principal">
+                        Ver equipos →
+                    </a>
+
+                    <a href="#contacto" class="btn-secundario">
+                        Cotizar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             SERVICIOS
+        ========================================== -->
+        <section id="servicios" class="servicios-seccion">
+
+            <div class="servicios-contenedor">
+
+                <div class="servicios-cabecera">
+
+                    <div>
+                        <p class="seccion-etiqueta">SERVICIOS</p>
+
+                        <h2>
+                            Soluciones topográficas para
+                            <span>cada etapa del proyecto</span>
+                        </h2>
+                    </div>
+
+                    <p class="servicios-intro">
+                        Brindamos servicios de topografía para proyectos de ingeniería,
+                        construcción, infraestructura y desarrollo territorial.
+                    </p>
+
+                </div>
+
+                <div class="servicios-lista">
+                    <span>Levantamientos topográficos</span>
+                    <span>Replanteos</span>
+                    <span>Georreferenciación</span>
+                    <span>Nivelaciones</span>
+                    <span>Control topográfico de obra</span>
+                    <span>Cálculo de áreas y volúmenes</span>
+                    <span>Levantamientos GNSS / RTK</span>
+                    <span>Fotogrametría con dron</span>
+                    <span>Catastro y delimitación de terrenos</span>
+                    <span>Topografía para construcción</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             NUESTROS EQUIPOS
+        ========================================== -->
+        <section id="equipos" class="equipos">
+
+            <div class="equipos-cabecera">
+
+                <div>
+
+                    <p class="seccion-etiqueta">
+                        NUESTROS EQUIPOS
+                    </p>
+
+                    <h2>
+                        Tecnología que
+                        <span>hace la diferencia</span>
+                    </h2>
+
+                </div>
+
+                <p class="equipos-intro">
+                    Contamos con equipos topográficos especializados para
+                    levantamientos, replanteos, georreferenciación y control
+                    de proyectos de ingeniería y construcción.
+                </p>
+
+            </div>
+
+
+            <div class="equipos-grid">
+
+                <!-- SOKKIA GRX2 -->
+                <article class="equipo-card">
+
+                    <div class="equipo-imagen">
+
+                        <img
+                            src="images/equipos/sokkia-grx2/grx2-principal.jpeg"
+                            alt="Sokkia GRX2 GNSS RTK"
+                        >
+
+                        <span class="equipo-tipo">
+                            GNSS / RTK
+                        </span>
+
+                    </div>
+
+                    <div class="equipo-info">
+
+                        <p class="equipo-marca">
+                            SOKKIA
+                        </p>
+
+                        <h3>GRX2</h3>
+
+                        <p>
+                            Sistema GNSS de alta precisión para levantamientos,
+                            georreferenciación y replanteos.
+                        </p>
+
+                        <button class="equipo-enlace abrir-equipo" data-equipo="grx2">
+                            Ver equipo →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TRIMBLE ROBÓTICA -->
+                <article class="equipo-card">
+
+                    <div class="equipo-imagen">
+
+                        <img
+                            src="images/equipos/robotica trimble/robo-18.jpeg"
+                            alt="Estación Total Robótica Trimble"
+                        >
+
+                        <span class="equipo-tipo">
+                            ROBÓTICA
+                        </span>
+
+                    </div>
+
+                    <div class="equipo-info">
+
+                        <p class="equipo-marca">
+                            TRIMBLE
+                        </p>
+
+                        <h3>Estación Total Robótica</h3>
+
+                        <p>
+                            Tecnología robótica para trabajos topográficos
+                            de alta precisión y control de obra.
+                        </p>
+
+                        <button class="equipo-enlace abrir-equipo" data-equipo="trimble">
+                            Ver equipo →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- SOKKIA -->
+                <article class="equipo-card">
+
+                    <div class="equipo-imagen">
+
+                        <img
+                            src="images/equipos/sokkia/sokkia-3.jpeg"
+                            alt="Equipo topográfico Sokkia"
+                        >
+
+                        <span class="equipo-tipo">
+                            TOPOGRAFÍA
+                        </span>
+
+                    </div>
+
+                    <div class="equipo-info">
+
+                        <p class="equipo-marca">
+                            SOKKIA
+                        </p>
+
+                        <h3>Estación Total</h3>
+
+                        <p>
+                            Equipo profesional para levantamientos,
+                            replanteos y control geométrico de proyectos.
+                        </p>
+
+                        <button class="equipo-enlace abrir-equipo" data-equipo="sokkia">
+                            Ver equipo →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TOPCON -->
+                <article class="equipo-card">
+
+                    <div class="equipo-imagen">
+
+                        <img
+                            src="images/equipos/topcon/topcon-2.jpeg"
+                            alt="Estación Total Topcon"
+                        >
+
+                        <span class="equipo-tipo">
+                            ESTACIÓN TOTAL
+                        </span>
+
+                    </div>
+
+                    <div class="equipo-info">
+
+                        <p class="equipo-marca">
+                            TOPCON
+                        </p>
+
+                        <h3>Estación Total</h3>
+
+                        <p>
+                            Solución de medición para levantamientos,
+                            construcción y control topográfico.
+                        </p>
+
+                        <button class="equipo-enlace abrir-equipo" data-equipo="topcon">
+                            Ver equipo →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- RUIDE -->
+                <article class="equipo-card">
+
+                    <div class="equipo-imagen">
+
+                        <img
+                            src="images/equipos/ruide/ruide.jpeg"
+                            alt="Estación Total Ruide"
+                        >
+
+                        <span class="equipo-tipo">
+                            ESTACIÓN TOTAL
+                        </span>
+
+                    </div>
+
+                    <div class="equipo-info">
+
+                        <p class="equipo-marca">
+                            RUIDE
+                        </p>
+
+                        <h3>Estación Total</h3>
+
+                        <p>
+                            Equipo para medición de ángulos, distancias,
+                            coordenadas y replanteos en campo.
+                        </p>
+
+                        <button class="equipo-enlace abrir-equipo" data-equipo="ruide">
+                            Ver equipo →
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             VIDEOS - TRABAJO EN CAMPO
+        ========================================== -->
+        <section id="videos" class="videos-seccion">
+
+            <div class="videos-contenedor">
+
+                <div class="videos-texto">
+
+                    <p class="seccion-etiqueta">
+                        VIDEOS
+                    </p>
+
+                    <h2>
+                        Nuestro trabajo
+                        <span>en campo</span>
+                    </h2>
+
+                    <p>
+                        Conoce nuestros procesos, equipos y trabajos
+                        topográficos ejecutados directamente en campo.
+                    </p>
+
+                </div>
+
+
+                <div class="videos-grid">
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/robotica.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Trabajo con estación robótica</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/robotica-20.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Control topográfico en campo</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Levantamiento topográfico</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Equipos CTDH en operación</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-3.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Trabajo topográfico en campo</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-5.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Proceso de levantamiento</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-6.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Medición y control en campo</p>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-wrapper">
+                            <video preload="metadata" muted playsinline>
+                                <source src="videos/video-7.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <p>Operación de equipos CTDH</p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             NUESTRA DIFERENCIA
+        ========================================== -->
+        <section class="diferencia">
+
+            <div class="diferencia-contenedor">
+
+                <div class="diferencia-titulo">
+                    <p class="seccion-etiqueta">NUESTRA DIFERENCIA</p>
+
+                    <h2>
+                        Más que topografía,
+                        <span>resultados precisos</span>
+                    </h2>
+                </div>
+
+                <div class="diferencia-item">
+                    <div class="diferencia-icono">◎</div>
+                    <h3>Precisión</h3>
+                    <p>Resultados confiables para proyectos de ingeniería.</p>
+                </div>
+
+                <div class="diferencia-item">
+                    <div class="diferencia-icono">⚙</div>
+                    <h3>Tecnología</h3>
+                    <p>Equipos especializados para trabajos de alta exigencia.</p>
+                </div>
+
+                <div class="diferencia-item">
+                    <div class="diferencia-icono">◉</div>
+                    <h3>Experiencia</h3>
+                    <p>Personal técnico capacitado para trabajo de campo.</p>
+                </div>
+
+                <div class="diferencia-item">
+                    <div class="diferencia-icono">✓</div>
+                    <h3>Resultados</h3>
+                    <p>Información confiable para la toma de decisiones.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             CONTACTO
+        ========================================== -->
+        <section id="contacto" class="contacto-seccion">
+
+            <div class="contacto-contenedor">
+
+                <div class="contacto-titulo">
+
+                    <p class="seccion-etiqueta">CONTACTO</p>
+
+                    <h2>
+                        Hablemos de
+                        <span>tu próximo proyecto</span>
+                    </h2>
+
+                    <p>
+                        Escríbenos para solicitar información, cotizar un servicio
+                        o conversar sobre los requerimientos topográficos de tu proyecto.
+                    </p>
+
+                </div>
+
+
+                <div class="contacto-grid">
+
+                    <a class="contacto-item destacado" href="tel:+50431541336">
+                        <span>Teléfono</span>
+                        <strong>+504 3154-1336</strong>
+                    </a>
+
+                    <a class="contacto-item destacado" href="https://wa.me/50499394345" target="_blank" rel="noopener">
+                        <span>WhatsApp / Teléfono</span>
+                        <strong>+504 9939-4345</strong>
+                    </a>
+
+                    <a class="contacto-item" href="mailto:ctdh2011@yahoo.com">
+                        <span>Correo electrónico</span>
+                        <strong>ctdh2011@yahoo.com</strong>
+                    </a>
+
+                    <a class="contacto-item" href="https://www.facebook.com/profile.php?id=61572333998054" target="_blank" rel="noopener">
+                        <span>Facebook</span>
+                        <strong>CTDH</strong>
+                    </a>
+
+                    <a class="contacto-item" href="https://www.instagram.com/ctdh135/" target="_blank" rel="noopener">
+                        <span>Instagram</span>
+                        <strong>@ctdh135</strong>
+                    </a>
+
+                    <div class="contacto-item">
+                        <span>Cobertura</span>
+                        <strong>Honduras</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             FICHA DEL EQUIPO
+        ========================================== -->
+        <div class="modal-equipo" id="modalEquipo">
+
+            <div class="modal-overlay"></div>
+
+            <div class="modal-contenido">
+
+                <button class="modal-cerrar" id="cerrarModal" aria-label="Cerrar">
+                    ×
+                </button>
+
+                <div class="modal-encabezado">
+
+                    <p class="modal-marca" id="modalMarca">SOKKIA</p>
+
+                    <h2 id="modalTitulo">GRX2</h2>
+
+                    <p class="modal-tipo" id="modalTipo">GNSS / RTK</p>
+
+                </div>
+
+
+                <div class="modal-principal">
+
+                    <div class="modal-foto-principal">
+
+                        <img id="modalImagenPrincipal" src="" alt="Equipo topográfico CTDH">
+
+                    </div>
+
+
+                    <div class="modal-descripcion">
+
+                        <p class="seccion-etiqueta">
+                            EQUIPO CTDH
+                        </p>
+
+                        <h3>
+                            Tecnología aplicada en campo
+                        </h3>
+
+                        <p id="modalDescripcion"></p>
+
+
+                        <div class="modal-datos">
+
+                            <div>
+                                <span>Marca</span>
+                                <strong id="datoMarca"></strong>
+                            </div>
+
+                            <div>
+                                <span>Modelo</span>
+                                <strong id="datoModelo"></strong>
+                            </div>
+
+                            <div>
+                                <span>Aplicación</span>
+                                <strong id="datoAplicacion"></strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-galeria-seccion">
+
+                    <p class="seccion-etiqueta">
+                        TRABAJOS REALIZADOS
+                    </p>
+
+                    <h3>
+                        Equipo en campo
+                    </h3>
+
+                    <p class="galeria-intro">
+                        Fotografías reales de trabajos ejecutados por CTDH
+                        utilizando este equipo.
+                    </p>
+
+                    <div class="modal-galeria" id="modalGaleria"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+    <footer class="footer">
+
+        <div class="footer-contenedor">
+
+            <div class="footer-marca">
+
+    <a href="#inicio" class="footer-logo-enlace">
+
+        <img src="images/logo/logo-ctdh.png" alt="Logo CTDH">
+
+        <div class="footer-logo-texto">
+            <strong>CTDH</strong>
+            <span>CONSTRUCCIÓN · TOPOGRAFÍA · INGENIERÍA</span>
+        </div>
+
+    </a>
+
+</div>
+
+            <div class="footer-redes">
+
+    <a
+        href="https://wa.me/50499394345"
+        target="_blank"
+        rel="noopener"
+        class="footer-icono"
+        title="WhatsApp"
+    >
+        <img src="images/logo/icono-whatsapp.png" alt="WhatsApp">
+    </a>
+
+    <a
+        href="https://www.facebook.com/profile.php?id=61572333998054"
+        target="_blank"
+        rel="noopener"
+        class="footer-icono"
+        title="Facebook"
+    >
+        <img src="images/logo/icono-facebook.png" alt="Facebook">
+    </a>
+
+    <a
+        href="https://www.instagram.com/ctdh135/"
+        target="_blank"
+        rel="noopener"
+        class="footer-icono"
+        title="Instagram"
+    >
+        <img src="images/logo/icono-instagram.png" alt="Instagram">
+    </a>
+
+    <div class="footer-datos">
+        <a href="tel:+50431541336">3154-1336</a>
+        <a href="mailto:ctdh2011@yahoo.com">ctdh2011@yahoo.com</a>
+    </div>
+
+</div>
+
+        </div>
+
+        <div class="footer-inferior">
+            © 2026 CTDH. Todos los derechos reservados.
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+    <script>
+        /* =========================================================
+           FICHAS DE EQUIPOS
+        ========================================================= */
+
+        const equipos = {
+
+            grx2: {
+                marca: "SOKKIA",
+                titulo: "GRX2",
+                tipo: "GNSS / RTK",
+                descripcion:
+                    "Sistema GNSS de alta precisión utilizado por CTDH para levantamientos topográficos, georreferenciación, replanteos, establecimiento de puntos de control y trabajos que requieren posicionamiento preciso en campo.",
+                modelo: "GRX2",
+                aplicacion:
+                    "GNSS, levantamientos, replanteos y georreferenciación",
+                principal:
+                    "images/equipos/sokkia-grx2/grx2-principal.jpeg",
+                galeria: [
+                    "images/equipos/sokkia-grx2/grx2-base.jpeg",
+                    "images/equipos/sokkia-grx2/grx2-base-rover.jpeg",
+                    "images/equipos/sokkia-grx2/grx2-montana.jpeg",
+                    "images/equipos/sokkia-grx2/grx2-rover-campo.jpeg",
+                    "images/equipos/sokkia-grx2/grx2-trabajo-campo.jpeg"
+                ]
+            },
+
+            trimble: {
+                marca: "TRIMBLE",
+                titulo: "Estación Total Robótica",
+                tipo: "ROBÓTICA",
+                descripcion:
+                    "Estación total robótica empleada para trabajos topográficos de alta precisión, replanteo, control de estructuras, levantamientos y seguimiento geométrico de proyectos de construcción.",
+                modelo: "Estación Total Robótica",
+                aplicacion:
+                    "Control de obra, replanteo y levantamientos de precisión",
+                principal:
+                    "images/equipos/robotica trimble/robo-18.jpeg",
+                galeria: [
+                    "images/equipos/robotica trimble/robo-2.jpeg",
+                    "images/equipos/robotica trimble/robo-4.jpeg",
+                    "images/equipos/robotica trimble/robo-5.jpeg",
+                    "images/equipos/robotica trimble/robo-8.jpeg",
+                    "images/equipos/robotica trimble/robo-11.jpeg",
+                    "images/equipos/robotica trimble/robo-15.jpeg",
+                    "images/equipos/robotica trimble/robo-17.jpeg",
+                    "images/equipos/robotica trimble/robo-19.jpeg"
+                ]
+            },
+
+            sokkia: {
+                marca: "SOKKIA",
+                titulo: "Estación Total",
+                tipo: "TOPOGRAFÍA",
+                descripcion:
+                    "Estación total profesional utilizada para levantamientos topográficos, replanteos, medición de coordenadas y control geométrico en proyectos de ingeniería y construcción.",
+                modelo: "Estación Total Sokkia",
+                aplicacion:
+                    "Levantamientos, coordenadas, replanteos y control de obra",
+                principal:
+                    "images/equipos/sokkia/sokkia-3.jpeg",
+                galeria: [
+                    "images/equipos/sokkia/sokkia-1.jpeg",
+                    "images/equipos/sokkia/sokkia-2.jpeg",
+                    "images/equipos/sokkia/sokkia-4.jpeg",
+                    "images/equipos/sokkia/sokkia-7.jpeg",
+                    "images/equipos/sokkia/sokkia-9.jpeg",
+                    "images/equipos/sokkia/sokkia-10.jpeg",
+                    "images/equipos/sokkia/sokkia-12.jpeg",
+                    "images/equipos/sokkia/sokkia-15.jpeg"
+                ]
+            },
+
+            topcon: {
+                marca: "TOPCON",
+                titulo: "Estación Total",
+                tipo: "ESTACIÓN TOTAL",
+                descripcion:
+                    "Equipo de medición utilizado por CTDH para levantamientos, replanteos y control topográfico en proyectos de ingeniería, construcción e infraestructura.",
+                modelo: "Estación Total Topcon",
+                aplicacion:
+                    "Topografía, construcción y control geométrico",
+                principal:
+                    "images/equipos/topcon/topcon-2.jpeg",
+                galeria: [
+                    "images/equipos/topcon/topcon-1.jpeg",
+                    "images/equipos/topcon/topcon-3.jpeg",
+                    "images/equipos/topcon/topcon-4.jpeg",
+                    "images/equipos/topcon/topcon-5.jpeg",
+                    "images/equipos/topcon/topcon-7.jpeg"
+                ]
+            },
+
+            ruide: {
+                marca: "RUIDE",
+                titulo: "Estación Total",
+                tipo: "ESTACIÓN TOTAL",
+                descripcion:
+                    "Estación total utilizada para medición de ángulos, distancias y coordenadas, así como levantamientos y replanteos en campo.",
+                modelo: "Estación Total Ruide",
+                aplicacion:
+                    "Levantamientos, replanteos y medición de coordenadas",
+                principal:
+                    "images/equipos/ruide/ruide.jpeg",
+                galeria: [
+                    "images/equipos/ruide/ruide-1.jpeg",
+                    "images/equipos/ruide/ruide-2.jpeg",
+                    "images/equipos/ruide/ruide-4.jpeg",
+                    "images/equipos/ruide/ruide-5.jpeg",
+                    "images/equipos/ruide/ruide-6.jpeg"
+                ]
+            }
+
+        };
+
+
+        const modal = document.getElementById("modalEquipo");
+        const cerrarModal = document.getElementById("cerrarModal");
+        const botonesEquipo = document.querySelectorAll(".abrir-equipo");
+
+
+        botonesEquipo.forEach((boton) => {
+
+            boton.addEventListener("click", () => {
+
+                const equipo = equipos[boton.dataset.equipo];
+
+                if (!equipo) return;
+
+                document.getElementById("modalMarca").textContent = equipo.marca;
+                document.getElementById("modalTitulo").textContent = equipo.titulo;
+                document.getElementById("modalTipo").textContent = equipo.tipo;
+                document.getElementById("modalDescripcion").textContent = equipo.descripcion;
+                document.getElementById("datoMarca").textContent = equipo.marca;
+                document.getElementById("datoModelo").textContent = equipo.modelo;
+                document.getElementById("datoAplicacion").textContent = equipo.aplicacion;
+                document.getElementById("modalImagenPrincipal").src = equipo.principal;
+
+                const galeria = document.getElementById("modalGaleria");
+                galeria.innerHTML = "";
+
+                equipo.galeria.forEach((imagen) => {
+                    const img = document.createElement("img");
+                    img.src = imagen;
+                    img.alt = `${equipo.marca} ${equipo.titulo} trabajando en campo`;
+                    galeria.appendChild(img);
+                });
+
+                modal.classList.add("activo");
+                document.body.style.overflow = "hidden";
+            });
+
+        });
+
+
+        function cerrarFichaEquipo() {
+            modal.classList.remove("activo");
+            document.body.style.overflow = "";
+        }
+
+
+        cerrarModal.addEventListener("click", cerrarFichaEquipo);
+
+        document
+            .querySelector(".modal-overlay")
+            .addEventListener("click", cerrarFichaEquipo);
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("activo")) {
+                cerrarFichaEquipo();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
+index.html
+HTML
